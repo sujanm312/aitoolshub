@@ -1,0 +1,8 @@
+{
+  "name": "aitoolshub",
+  "description": "High-performance financial calculators, wealth tools, and comprehensive investment guides for Indian investors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

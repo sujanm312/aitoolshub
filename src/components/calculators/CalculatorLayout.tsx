@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CalculatorMeta, AdSettings } from '../../types';
 import { AdSlot } from '../ui/AdSlot';
 import { SEOMarkup } from '../ui/SEOMarkup';
+import { recordCalculatorRun } from '../../utils/analytics';
 import {
   BookOpen,
   HelpCircle,
@@ -33,6 +34,11 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
 }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
+
+  // Track live real usage of this calculator
+  useEffect(() => {
+    recordCalculatorRun(meta.id);
+  }, [meta.id]);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);

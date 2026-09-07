@@ -1,6 +1,6 @@
 import React from 'react';
 import { CALCULATORS_DATA } from '../../data/calculatorGuides';
-import { ShieldCheck, Heart, ExternalLink, Mail, Globe, MapPin } from 'lucide-react';
+import { ShieldCheck, Heart, ExternalLink, Mail, Globe, MapPin, Lock } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
@@ -131,6 +131,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenSitemap }) => 
                   className="hover:text-white transition cursor-pointer text-blue-400"
                 >
                   Next.js SSG Sitemap Tree
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('/admin')}
+                  className="hover:text-white transition cursor-pointer text-slate-400 flex items-center gap-1.5"
+                >
+                  <Lock className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Admin Console</span>
                 </button>
               </li>
             </ul>

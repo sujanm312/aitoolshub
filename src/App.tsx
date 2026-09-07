@@ -21,9 +21,10 @@ import { FdRdCalculator } from './components/calculators/FdRdCalculator';
 import { SitemapModal } from './components/ui/SitemapModal';
 import { BlogListView } from './components/pages/BlogListView';
 import { BlogDetailView } from './components/pages/BlogDetailView';
+import { SeoInjector, DEFAULT_SEO_SETTINGS } from './components/seo/SeoInjector';
 import { CALCULATORS_DATA } from './data/calculatorGuides';
 import { DEFAULT_BLOG_POSTS } from './data/blogPosts';
-import { AdSettings, BlogPost } from './types';
+import { AdSettings, BlogPost, SeoInjectionSettings } from './types';
 
 const DEFAULT_AD_SETTINGS: AdSettings = {
   topBanner: true,
@@ -64,6 +65,15 @@ export default function App() {
       return saved ? JSON.parse(saved) : DEFAULT_BLOG_POSTS;
     } catch {
       return DEFAULT_BLOG_POSTS;
+    }
+  });
+
+  const [seoSettings, setSeoSettings] = useState<SeoInjectionSettings>(() => {
+    try {
+      const saved = localStorage.getItem('aitoolshub_seo_settings');
+      return saved ? JSON.parse(saved) : DEFAULT_SEO_SETTINGS;
+    } catch {
+      return DEFAULT_SEO_SETTINGS;
     }
   });
 
@@ -168,6 +178,15 @@ export default function App() {
     }
   };
 
+  const handleUpdateSeoSettings = (newSettings: SeoInjectionSettings) => {
+    setSeoSettings(newSettings);
+    try {
+      localStorage.setItem('aitoolshub_seo_settings', JSON.stringify(newSettings));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // Route resolver
   const renderCurrentView = () => {
     if (currentPath === '/' || currentPath === '') {
@@ -226,7 +245,7 @@ export default function App() {
       return <DisclaimerView onNavigate={handleNavigate} />;
     }
 
-    if (currentPath === '/admin' || currentPath === '/admin/dashboard') {
+    if (currentPath.startsWith('/admin')) {
       return (
         <AdminDashboard
           adSettings={adSettings}
@@ -239,6 +258,8 @@ export default function App() {
           onUpdateBlog={handleUpdateBlog}
           onDeleteBlog={handleDeleteBlog}
           onResetBlogs={handleResetBlogs}
+          seoSettings={seoSettings}
+          onUpdateSeoSettings={handleUpdateSeoSettings}
           onNavigate={handleNavigate}
         />
       );
@@ -338,24 +359,31 @@ export default function App() {
     );
   };
 
+  const isAdmin = currentPath.startsWith('/admin');
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-slate-900 selection:bg-orange-100 selection:text-orange-900">
-      {/* Navigation Bar */}
-      <Navbar currentPath={currentPath} onNavigate={handleNavigate} />
+    <div className={`min-h-screen flex flex-col ${isAdmin ? 'bg-slate-100' : 'bg-[#F8FAFC]'} text-slate-900 selection:bg-orange-100 selection:text-orange-900`}>
+      {/* Dynamic SEO Code Injector (Head, Body Top, Footer) */}
+      <SeoInjector settings={seoSettings} />
+
+      {/* Navigation Bar - Excluded on Admin Panel */}
+      {!isAdmin && <Navbar currentPath={currentPath} onNavigate={handleNavigate} />}
 
       {/* Main Routed Content */}
-      <main className="flex-1 pb-16 md:pb-0">
+      <main className={`flex-1 ${isAdmin ? 'p-0 m-0' : 'pb-16 md:pb-0'}`}>
         {renderCurrentView()}
       </main>
 
-      {/* Comprehensive Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenSitemap={() => setSitemapModalOpen(true)}
-      />
+      {/* Comprehensive Footer - Excluded on Admin Panel */}
+      {!isAdmin && (
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenSitemap={() => setSitemapModalOpen(true)}
+        />
+      )}
 
-      {/* Mobile Sticky Bottom Nav */}
-      <BottomNav currentPath={currentPath} onNavigate={handleNavigate} />
+      {/* Mobile Sticky Bottom Nav - Excluded on Admin Panel */}
+      {!isAdmin && <BottomNav currentPath={currentPath} onNavigate={handleNavigate} />}
 
       {/* Next.js SSG / Sitemap Modal */}
       <SitemapModal

@@ -113,3 +113,10 @@ export interface AdminMetrics {
     pct: number;
   }[];
 }
+
+export interface SeoInjectionSettings {
+  enabled: boolean;
+  headerCode: string;
+  bodyTopCode: string;
+  footerCode: string;
+}

@@ -135,21 +135,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
   );
 
   const getIcon = (id: string) => {
+    const iconClass = 'w-6 h-6 text-current group-hover:text-white transition-colors duration-300';
     switch (id) {
       case 'sip-calculator':
-        return <TrendingUp className="w-6 h-6 text-[#FF671F]" />;
+        return <TrendingUp className={iconClass} />;
       case 'emi-calculator':
-        return <Landmark className="w-6 h-6 text-[#046A38]" />;
+        return <Landmark className={iconClass} />;
       case 'compound-interest':
-        return <Zap className="w-6 h-6 text-amber-500" />;
+        return <Zap className={iconClass} />;
       case 'gratuity-calculator':
-        return <Award className="w-6 h-6 text-[#06038D]" />;
+        return <Award className={iconClass} />;
       case 'ppf-calculator':
-        return <ShieldCheck className="w-6 h-6 text-emerald-600" />;
+        return <ShieldCheck className={iconClass} />;
       case 'fd-rd-calculator':
-        return <PiggyBank className="w-6 h-6 text-orange-600" />;
+        return <PiggyBank className={iconClass} />;
       default:
-        return <TrendingUp className="w-6 h-6 text-[#FF671F]" />;
+        return <TrendingUp className={iconClass} />;
     }
   };
 

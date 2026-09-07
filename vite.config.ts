@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 import { defineConfig, Plugin } from 'vite';
 
 const AUTHORIZED_ADMIN_EMAIL = 'designer.sujanmondal@gmail.com';
@@ -12,6 +13,30 @@ function adminApiPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const url = req.url || '';
+
+        // GET /sitemap.xml
+        if (url === '/sitemap.xml' || url.startsWith('/sitemap.xml')) {
+          const sitemapPath = path.resolve(process.cwd(), 'public/sitemap.xml');
+          if (fs.existsSync(sitemapPath)) {
+            const content = fs.readFileSync(sitemapPath, 'utf-8');
+            res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+            res.setHeader('Cache-Control', 'public, max-age=3600');
+            res.end(content);
+            return;
+          }
+        }
+
+        // GET /robots.txt
+        if (url === '/robots.txt' || url.startsWith('/robots.txt')) {
+          const robotsPath = path.resolve(process.cwd(), 'public/robots.txt');
+          if (fs.existsSync(robotsPath)) {
+            const content = fs.readFileSync(robotsPath, 'utf-8');
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            res.setHeader('Cache-Control', 'public, max-age=3600');
+            res.end(content);
+            return;
+          }
+        }
 
         // POST /api/admin/send-otp
         if (url.startsWith('/api/admin/send-otp') && req.method === 'POST') {

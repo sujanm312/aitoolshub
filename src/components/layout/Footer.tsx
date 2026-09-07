@@ -130,8 +130,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenSitemap }) => 
                   onClick={onOpenSitemap}
                   className="hover:text-white transition cursor-pointer text-blue-400"
                 >
-                  Next.js SSG Sitemap Tree
+                  Interactive Sitemap Tree
                 </button>
+              </li>
+              <li>
+                <a
+                  href="/sitemap.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition cursor-pointer text-emerald-400 flex items-center gap-1.5 font-medium"
+                >
+                  <Globe className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>XML Sitemap (sitemap.xml)</span>
+                </a>
               </li>
               <li>
                 <button

@@ -219,15 +219,26 @@ Sitemap: https://aitoolshub.co.in/sitemap.xml`;
 
         {/* Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
-          <span className="text-slate-500">
+          <span className="text-slate-500 hidden sm:inline">
             Compliant with Google Search Console & AdSense Bot crawlers.
           </span>
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800 transition cursor-pointer"
-          >
-            Close
-          </button>
+          <div className="flex items-center gap-2">
+            <a
+              href="/sitemap.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition flex items-center gap-1.5 cursor-pointer"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>Open /sitemap.xml</span>
+            </a>
+            <button
+              onClick={onClose}
+              className="px-4 py-1.5 rounded-xl bg-slate-900 text-white font-bold hover:bg-slate-800 transition cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,8 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# XML Sitemap Location
+Sitemap: https://aitoolshub.co.in/sitemap.xml

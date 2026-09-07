@@ -1,27 +1,19 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {
     font-size: 18px;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
   }
-
-  @media (min-width: 1024px) {
-    html {
-      font-size: 19px;
-    }
-  }
-
   body {
     font-size: 1rem;
     line-height: 1.625;
   }
 }
 
-/* 3D Tactile physical buttons adhering to the Indian Tricolor palette */
 .btn-3d-saffron {
   background-color: #FF671F;
   color: #FFFFFF;
@@ -73,23 +65,6 @@
   box-shadow: 0 0 0 #020617, inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Custom range sliders */
 input[type="range"] {
   accent-color: #FF671F;
-}
-
-/* Custom subtle scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
-}
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
 }

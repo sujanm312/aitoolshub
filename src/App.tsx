@@ -62,7 +62,11 @@ export default function App() {
   const [blogs, setBlogs] = useState<BlogPost[]>(() => {
     try {
       const saved = localStorage.getItem('aitoolshub_blog_posts');
-      return saved ? JSON.parse(saved) : DEFAULT_BLOG_POSTS;
+      if (!saved) return DEFAULT_BLOG_POSTS;
+      const parsed: BlogPost[] = JSON.parse(saved);
+      const defaultMap = new Map(DEFAULT_BLOG_POSTS.map((b) => [b.id, b]));
+      const customPosts = parsed.filter((p) => !defaultMap.has(p.id));
+      return [...DEFAULT_BLOG_POSTS, ...customPosts];
     } catch {
       return DEFAULT_BLOG_POSTS;
     }
@@ -212,7 +216,9 @@ export default function App() {
 
     if (currentPath.startsWith('/blog/')) {
       const slug = currentPath.replace('/blog/', '').replace(/\/$/, '');
-      const foundBlog = blogs.find((b) => b.slug === slug || b.id === slug);
+      const foundBlog = blogs.find(
+        (b) => b.slug === slug || b.id === slug || (b.aliases && b.aliases.includes(slug))
+      );
       if (foundBlog) {
         return (
           <BlogDetailView

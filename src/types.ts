@@ -84,6 +84,7 @@ export interface AdSettings {
 export interface BlogPost {
   id: string;
   slug: string;
+  aliases?: string[];
   title: string;
   excerpt: string;
   content: string;

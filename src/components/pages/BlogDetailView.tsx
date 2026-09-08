@@ -304,32 +304,6 @@ export const BlogDetailView: React.FC<BlogDetailViewProps> = ({
             </button>
           </div>
         )}
-
-        {/* Author Bio Box */}
-        <div className="mt-10 pt-8 border-t border-slate-100 flex items-start gap-4">
-          {blog.author.avatar ? (
-            <img
-              src={blog.author.avatar}
-              alt={blog.author.name}
-              className="w-14 h-14 rounded-2xl object-cover border border-slate-200 shrink-0"
-            />
-          ) : (
-            <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-[#06038D] font-bold text-xl flex items-center justify-center shrink-0">
-              {blog.author.name.charAt(0)}
-            </div>
-          )}
-          <div>
-            <h4 className="text-sm font-bold text-slate-900">
-              Written by {blog.author.name}
-            </h4>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">
-              {blog.author.role} · aitoolshub Editorial Contributor
-            </p>
-            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Specializes in Indian financial jurisprudence, tax-efficient portfolio architecture, mutual fund metrics, and statutory employment benefits under the Payment of Gratuity Act and Income Tax provisions.
-            </p>
-          </div>
-        </div>
       </article>
 
       {/* Mid-Article / In-Article Ad Banner */}

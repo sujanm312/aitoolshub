@@ -31,7 +31,11 @@ export const RichContent: React.FC<RichContentProps> = ({
       if (mdLinkMatch) {
         const linkText = mdLinkMatch[1];
         const linkUrl = mdLinkMatch[2];
-        const isInternal = linkUrl.startsWith('/');
+        const isInternal =
+          linkUrl.startsWith('/') ||
+          linkUrl.startsWith('https://aitoolshub.co.in') ||
+          linkUrl.startsWith('http://aitoolshub.co.in');
+        const internalPath = linkUrl.replace(/^https?:\/\/aitoolshub\.co\.in/, '') || '/';
 
         parts.push(
           isInternal && onNavigate ? (
@@ -39,7 +43,7 @@ export const RichContent: React.FC<RichContentProps> = ({
               key={`link-${keyIdx++}`}
               onClick={(e) => {
                 e.preventDefault();
-                onNavigate(linkUrl);
+                onNavigate(internalPath);
               }}
               className="text-[#06038D] hover:text-[#FF671F] font-bold underline decoration-blue-300 hover:decoration-[#FF671F] transition cursor-pointer inline-flex items-center gap-0.5"
             >
@@ -175,6 +179,34 @@ export const RichContent: React.FC<RichContentProps> = ({
       {blocks.map((block, bIdx) => {
         const trimmed = block.trim();
         if (!trimmed) return null;
+
+        // Horizontal divider (--- or *** or ___)
+        if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
+          return <hr key={bIdx} className="my-8 border-t border-slate-200" />;
+        }
+
+        // Markdown image: ![alt](url)
+        const mdImgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+        if (mdImgMatch) {
+          const imgAlt = mdImgMatch[1];
+          const imgUrl = mdImgMatch[2];
+          return (
+            <figure key={bIdx} className="my-8 rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-50 shadow-sm">
+              <img
+                src={imgUrl}
+                alt={imgAlt || 'Article illustration'}
+                className="w-full h-auto object-cover max-h-[460px]"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              {imgAlt ? (
+                <figcaption className="text-xs text-slate-500 text-center py-2.5 px-4 bg-slate-100/90 font-medium italic border-t border-slate-200/60">
+                  {imgAlt}
+                </figcaption>
+              ) : null}
+            </figure>
+          );
+        }
 
         // Heading 1 (# Heading)
         if (trimmed.startsWith('# ')) {

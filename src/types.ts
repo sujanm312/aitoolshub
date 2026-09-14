@@ -1,10 +1,36 @@
+export type ToolCategory =
+  | 'finance'
+  | 'media-tools'
+  | 'text-tools'
+  | 'dev-tools'
+  | 'productivity'
+  | 'utilities'
+  | 'ai-tools'
+  | 'daily';
+
 export type CalculatorId = 
   | 'sip-calculator'
   | 'emi-calculator'
   | 'compound-interest'
   | 'gratuity-calculator'
   | 'ppf-calculator'
-  | 'fd-rd-calculator';
+  | 'fd-rd-calculator'
+  | 'old-vs-new-tax'
+  | 'step-up-sip'
+  | 'swp-calculator'
+  | 'home-loan-prepayment'
+  | 'freelance-rate-calculator'
+  | 'gst-invoice-generator'
+  | 'bio-caption-generator'
+  | 'youtube-title-tag-generator'
+  | 'image-resizer'
+  | 'pdf-tools'
+  | 'qr-code-suite'
+  | 'age-calculator'
+  | 'word-counter'
+  | 'fuel-trip-calculator'
+  | 'password-generator'
+  | string;
 
 export interface FAQItem {
   question: string;
@@ -28,6 +54,8 @@ export interface CalculatorMeta {
   name: string;
   shortName: string;
   badge: string;
+  category?: ToolCategory;
+  toolType?: 'calculator' | 'utility' | 'ai-tool';
   tagline: string;
   description: string;
   keywords: string[];
@@ -43,15 +71,16 @@ export interface CalculatorMeta {
       content: string;
       bulletPoints?: string[];
     }[];
-    taxImplications: {
+    taxImplications?: {
       title: string;
       rules: { regime: string; detail: string }[];
     };
-    prosAndCons: {
+    prosAndCons?: {
       pros: string[];
       cons: string[];
     };
-    commonMistakes: string[];
+    commonMistakes?: string[];
+    summary?: string;
   };
   faqs: FAQItem[];
 }

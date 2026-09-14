@@ -1,6 +1,8 @@
 import { CalculatorMeta } from '../types';
+import { NEW_TOOLS_DATA } from './newToolsGuides';
+import { FIFTY_TOOLS_DATA } from './allFiftyTools';
 
-export const CALCULATORS_DATA: Record<string, CalculatorMeta> = {
+const BASE_CALCULATORS: Record<string, CalculatorMeta> = {
   'sip-calculator': {
     id: 'sip-calculator',
     path: '/calculators/sip-calculator',
@@ -697,3 +699,10 @@ export const CALCULATORS_DATA: Record<string, CalculatorMeta> = {
     ],
   },
 };
+
+export const CALCULATORS_DATA: Record<string, CalculatorMeta> = {
+  ...BASE_CALCULATORS,
+  ...NEW_TOOLS_DATA,
+  ...FIFTY_TOOLS_DATA,
+};
+

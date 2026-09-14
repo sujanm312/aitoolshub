@@ -18,11 +18,28 @@ import { CompoundInterestCalculator } from './components/calculators/CompoundInt
 import { GratuityCalculator } from './components/calculators/GratuityCalculator';
 import { PpfCalculator } from './components/calculators/PpfCalculator';
 import { FdRdCalculator } from './components/calculators/FdRdCalculator';
+import { OldVsNewTaxCalculator } from './components/tools/finance/OldVsNewTaxCalculator';
+import { SwpCalculator } from './components/tools/finance/SwpCalculator';
+import { HomeLoanPrepaymentCalculator } from './components/tools/finance/HomeLoanPrepaymentCalculator';
+import { FreelanceRateCalculator } from './components/tools/finance/FreelanceRateCalculator';
+import { GstInvoiceGenerator } from './components/tools/finance/GstInvoiceGenerator';
+import { BioCaptionGenerator } from './components/tools/ai/BioCaptionGenerator';
+import { YoutubeTitleTagGenerator } from './components/tools/ai/YoutubeTitleTagGenerator';
+import { ImageResizerCompressor } from './components/tools/utilities/ImageResizerCompressor';
+import { PdfToolsSuite } from './components/tools/utilities/PdfToolsSuite';
+import { QrCodeSuite } from './components/tools/utilities/QrCodeSuite';
+import { AgeCalculator } from './components/tools/daily/AgeCalculator';
+import { WordCounter } from './components/tools/daily/WordCounter';
+import { FuelTripCalculator } from './components/tools/daily/FuelTripCalculator';
+import { PasswordGenerator } from './components/tools/daily/PasswordGenerator';
 import { SitemapModal } from './components/ui/SitemapModal';
 import { BlogListView } from './components/pages/BlogListView';
 import { BlogDetailView } from './components/pages/BlogDetailView';
 import { SeoInjector, DEFAULT_SEO_SETTINGS } from './components/seo/SeoInjector';
 import { CALCULATORS_DATA } from './data/calculatorGuides';
+import { FIFTY_TOOLS_DATA } from './data/allFiftyTools';
+import { ToolPageLayout } from './components/ToolPageLayout';
+import { ToolDispatcher } from './components/tools/ToolDispatcher';
 import { DEFAULT_BLOG_POSTS } from './data/blogPosts';
 import { AdSettings, BlogPost, SeoInjectionSettings } from './types';
 
@@ -347,6 +364,217 @@ export default function App() {
         >
           <FdRdCalculator />
         </CalculatorLayout>
+      );
+    }
+
+    // Finance Suite
+    if (currentPath === '/finance/old-vs-new-tax' || currentPath === '/calculators/old-vs-new-tax') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['old-vs-new-tax']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['old-vs-new-tax']}
+          onNavigate={handleNavigate}
+        >
+          <OldVsNewTaxCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/finance/swp-calculator' || currentPath === '/calculators/swp-calculator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['swp-calculator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['swp-calculator']}
+          onNavigate={handleNavigate}
+        >
+          <SwpCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/finance/home-loan-prepayment' || currentPath === '/calculators/home-loan-prepayment') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['home-loan-prepayment']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['home-loan-prepayment']}
+          onNavigate={handleNavigate}
+        >
+          <HomeLoanPrepaymentCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/finance/freelance-rate-calculator' || currentPath === '/calculators/freelance-rate-calculator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['freelance-rate-calculator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['freelance-rate-calculator']}
+          onNavigate={handleNavigate}
+        >
+          <FreelanceRateCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/finance/gst-invoice-generator' || currentPath === '/calculators/gst-invoice-generator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['gst-invoice-generator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['gst-invoice-generator']}
+          onNavigate={handleNavigate}
+        >
+          <GstInvoiceGenerator />
+        </CalculatorLayout>
+      );
+    }
+
+    // AI & Social Growth
+    if (currentPath === '/ai-tools/bio-caption-generator' || currentPath === '/calculators/bio-caption-generator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['bio-caption-generator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['bio-caption-generator']}
+          onNavigate={handleNavigate}
+        >
+          <BioCaptionGenerator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/ai-tools/youtube-title-tag-generator' || currentPath === '/calculators/youtube-title-tag-generator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['youtube-title-tag-generator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['youtube-title-tag-generator']}
+          onNavigate={handleNavigate}
+        >
+          <YoutubeTitleTagGenerator />
+        </CalculatorLayout>
+      );
+    }
+
+    // Utilities & Converters
+    if (currentPath === '/utilities/image-resizer' || currentPath === '/calculators/image-resizer') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['image-resizer']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['image-resizer']}
+          onNavigate={handleNavigate}
+        >
+          <ImageResizerCompressor />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/utilities/pdf-tools' || currentPath === '/calculators/pdf-tools') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['pdf-tools']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['pdf-tools']}
+          onNavigate={handleNavigate}
+        >
+          <PdfToolsSuite />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/utilities/qr-code-suite' || currentPath === '/calculators/qr-code-suite') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['qr-code-suite']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['qr-code-suite']}
+          onNavigate={handleNavigate}
+        >
+          <QrCodeSuite />
+        </CalculatorLayout>
+      );
+    }
+
+    // Daily Life & Productivity
+    if (currentPath === '/daily/age-calculator' || currentPath === '/calculators/age-calculator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['age-calculator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['age-calculator']}
+          onNavigate={handleNavigate}
+        >
+          <AgeCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/daily/word-counter' || currentPath === '/calculators/word-counter') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['word-counter']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['word-counter']}
+          onNavigate={handleNavigate}
+        >
+          <WordCounter />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/daily/fuel-trip-calculator' || currentPath === '/calculators/fuel-trip-calculator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['fuel-trip-calculator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['fuel-trip-calculator']}
+          onNavigate={handleNavigate}
+        >
+          <FuelTripCalculator />
+        </CalculatorLayout>
+      );
+    }
+
+    if (currentPath === '/daily/password-generator' || currentPath === '/calculators/password-generator') {
+      return (
+        <CalculatorLayout
+          meta={CALCULATORS_DATA['password-generator']}
+          adSettings={adSettings}
+          customGuideContent={customGuides['password-generator']}
+          onNavigate={handleNavigate}
+        >
+          <PasswordGenerator />
+        </CalculatorLayout>
+      );
+    }
+
+    // Dynamic 50-Tool Suite Routing (/finance/*, /media-tools/*, /text-tools/*, /dev-tools/*, /productivity/*)
+    const normalizedPath = currentPath.replace(/\/$/, '');
+    const matchedTool = Object.values(FIFTY_TOOLS_DATA).find(
+      (tool) =>
+        tool.path === normalizedPath ||
+        tool.path === currentPath ||
+        `/${tool.id}` === normalizedPath ||
+        `/calculators/${tool.id}` === normalizedPath ||
+        `/${tool.category}/${tool.id}` === normalizedPath
+    );
+
+    if (matchedTool) {
+      const related = Object.values(FIFTY_TOOLS_DATA).filter((t) => t.id !== matchedTool.id);
+      return (
+        <ToolPageLayout
+          meta={matchedTool}
+          adSettings={adSettings}
+          onNavigate={handleNavigate}
+          relatedTools={related}
+        >
+          <ToolDispatcher tool={matchedTool} />
+        </ToolPageLayout>
       );
     }
 

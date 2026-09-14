@@ -1,0 +1,83 @@
+name: Automated Daily Lottery Result Sync & Programmatic Publisher
+
+on:
+  schedule:
+    # 1:05 PM IST (07:35 UTC) - Dear Morning Draw
+    - cron: '35 7 * * *'
+    # 6:05 PM IST (12:35 UTC) - Dear Day Draw
+    - cron: '35 12 * * *'
+    # 8:05 PM IST (14:35 UTC) - Dear Night Draw
+    - cron: '35 14 * * *'
+  workflow_dispatch:
+    inputs:
+      draw_time:
+        description: 'Target Draw Window'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - 1-00-pm
+          - 6-00-pm
+          - 8-00-pm
+      force_date:
+        description: 'Target Date (YYYY-MM-DD, defaults to current IST date)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-publish:
+    name: Scrape Gazette PDF & Publish Programmatic Draw Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python Automation Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pypdf
+
+      - name: Execute Lottery Result Scraper & Generator
+        run: |
+          FLAGS=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.force_date }}" ]; then
+              FLAGS="$FLAGS --date ${{ inputs.force_date }}"
+            fi
+            if [ -n "${{ inputs.draw_time }}" ]; then
+              FLAGS="$FLAGS --time-key ${{ inputs.draw_time }}"
+            fi
+          fi
+          echo "Executing scraper with options: $FLAGS"
+          python3 scripts/lottery_scraper.py $FLAGS
+
+      - name: Commit and Push New Lottery Results & Programmatic Pages
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/lottery-results/
+          git add public/lottery-pdfs/ || true
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No new lottery result changes to commit."
+          else
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            git commit -m "chore(lottery): publish official draw results & programmatic guides [skip ci] ($TIMESTAMP)"
+            git push origin main
+            echo "Successfully pushed latest draw results. Cloudflare Pages build triggered."
+          fi

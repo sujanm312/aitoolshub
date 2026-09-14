@@ -1,0 +1,41 @@
+{
+  "updatedAt": "2026-09-14T07:07:02.476214+00:00",
+  "draws": [
+    {
+      "id": "14-sep-2026-8-00-pm",
+      "slug": "14-september-2026-8-00-pm-result",
+      "title": "14 September 2026 8:00 PM Lottery Result Today - Winning Numbers & PDF",
+      "drawDate": "14 September 2026",
+      "drawTime": "8:00 PM",
+      "drawTimeKey": "8-00-pm",
+      "drawName": "Dear Night",
+      "firstPrizeTicket": "68K 66592",
+      "pdfUrl": "/lottery-pdfs/14-september-2026-8-00-pm-result.pdf",
+      "publishedAt": "2026-09-14T20:05:00+05:30"
+    },
+    {
+      "id": "14-sep-2026-6-00-pm",
+      "slug": "14-september-2026-6-00-pm-result",
+      "title": "14 September 2026 6:00 PM Lottery Result Today - Winning Numbers & PDF",
+      "drawDate": "14 September 2026",
+      "drawTime": "6:00 PM",
+      "drawTimeKey": "6-00-pm",
+      "drawName": "Dear Day",
+      "firstPrizeTicket": "73D 65114",
+      "pdfUrl": "/lottery-pdfs/14-september-2026-6-00-pm-result.pdf",
+      "publishedAt": "2026-09-14T18:05:00+05:30"
+    },
+    {
+      "id": "14-sep-2026-1-00-pm",
+      "slug": "14-september-2026-1-00-pm-result",
+      "title": "14 September 2026 1:00 PM Lottery Result Today - Winning Numbers & PDF",
+      "drawDate": "14 September 2026",
+      "drawTime": "1:00 PM",
+      "drawTimeKey": "1-00-pm",
+      "drawName": "Dear Morning",
+      "firstPrizeTicket": "73D 61419",
+      "pdfUrl": "/lottery-pdfs/14-september-2026-1-00-pm-result.pdf",
+      "publishedAt": "2026-09-14T13:05:00+05:30"
+    }
+  ]
+}
